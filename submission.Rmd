@@ -1,0 +1,67 @@
+---
+title: "STAT 450 Tutorial"
+author: "Nam Hee Gordon Kim"
+date: "January 11, 2018"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## About NHGK
+
+My name is Nam. My name does not rhyme with Sam but with Islam and lip balm. I am originally from South Korea. However, I don't listen to K-Pop.
+
+## Favorite Equation
+
+My favorite equation is the Bayes' Rule equation.
+
+\[
+P(A | B) = \frac{P(B|A) P(A)}{P(B)}
+\]
+
+Bayes' Rule is widely used in statistics and probability. The Bayesian approach to artificial intelligence and machine learning is rapidly gaining popularity. 
+
+## Favorite Dataset
+
+My favoriate dataset is the \texttt{trees} dataset in R. Thirty-one (31) trees were measured. The features of interests are the height, girth, and volume of each tree.
+
+```{r trees}
+summary(trees)
+head(trees, 5)
+```
+
+For this dataset, I show that tall trees tend to have larger girth. The definition of "tall" trees is above average height. 
+
+```{r echo=FALSE, fig.align="center"}
+tall = trees$Height > mean(trees$Height)
+tallTrees = trees[tall,]
+shortTrees = trees[!tall,]
+par(mfrow=c(1,2))
+boxplot(tallTrees$Girth, names=c("Tall", "Short"), shortTrees$Girth, main="Girth of Tall vs. Short Trees", ylab="Girth")
+```
+
+The median and mean girth was higher in the tall trees than those of the shorter trees. My initial intuition is that taller trees must support its height by growing in girth. I performed two-class student T test to test the hypothesis:
+
+\[
+H_0: \text{ tall and short trees have the same population mean of girth }
+\]
+
+which is formalized as
+
+\[
+H_0: \mu_{\text{tall}} = \mu_{\text{short}}
+\]
+
+```{r}
+t.test(Girth ~ tall, data=trees)
+```
+
+Test statistic $t$ returned -3.29. The $p$-value was 0.003. With significance level 95%, we reject $H_0$ in favor of the difference in population means.
+
+## Acknowledgments
+
+This project was funded by My Parents Grant as well as Internship Money.
