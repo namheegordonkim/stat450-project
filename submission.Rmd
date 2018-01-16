@@ -3,8 +3,8 @@ title: "STAT 450 Tutorial"
 author: "Nam Hee Gordon Kim"
 date: "January 11, 2018"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
